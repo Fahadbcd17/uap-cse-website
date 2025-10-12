@@ -16,7 +16,7 @@
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Admissions</router-link>
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Research</router-link>
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Contact</router-link>
-          <router-link to="/signup" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+          <router-link to="/login" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
             Login
           </router-link>          
         </nav>
@@ -38,6 +38,7 @@
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Admissions</router-link>
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Research</router-link>
           <router-link to="/" class="text-gray-600 hover:text-blue-600 transition">Contact</router-link>
+          <router-link to="/login" class="text-gray-600 hover:text-blue-600 transition">Contact</router-link>
           
         </div>
       </div>
