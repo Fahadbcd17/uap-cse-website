@@ -12,6 +12,12 @@ class PostSerializer(serializers.ModelSerializer):
             model = Post
             fields = "__all__"
 
+class ConvenerSerializer(serializers.ModelSerializer):
+    club_name = serializers.CharField(source='club.name', read_only=True)
+    
+    class Meta:
+        model = Convener
+        fields = ['id', 'club', 'club_name', 'name', 'title', 'image', 'mail']
 
 class PresidentSerializer(serializers.ModelSerializer):
     club_name = serializers.CharField(source='club.name', read_only=True)

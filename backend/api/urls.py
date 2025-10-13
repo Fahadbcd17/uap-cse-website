@@ -5,6 +5,7 @@ from .views import *
 router = routers.DefaultRouter()
 router.register(r'club', views.ClubViewSet, basename='club')
 router.register(r'post', views.PostViewSet, basename='post')
+router.register(r'conveners', ConvenerViewSet)
 router.register(r'presidents', PresidentViewSet)
 router.register(r'vice-presidents', VisePresidentViewSet)
 router.register(r'general-secretaries', GeneralSecretaryViewSet)

@@ -164,6 +164,51 @@ export const store = createStore({
       }
     },
 
+
+    convener: {
+      namespaced: true,
+      state: {
+        conveners: [],
+        loading: false,
+        error: null
+      },
+      getters: {
+        conveners: (state) => state.conveners,
+        loading: (state) => state.loading,
+        error: (state) => state.error
+      },
+      actions: {
+        async fetchConveners({ commit }) {
+          commit('SET_LOADING', true);
+          commit('SET_ERROR', null);
+          try {
+            const response = await GetService.getConveners(true);
+            commit('SET_CONVENERS', response); // FIXED: Changed from SET_PRESIDENTS to SET_CONVENERS
+            return response;
+          } catch (error) {
+            commit('SET_ERROR', error.message || 'Failed to fetch conveners');
+            console.error("Error fetching conveners:", error);
+            throw error;
+          } finally {
+            commit('SET_LOADING', false);
+          }
+        }
+      },
+      mutations: {
+        SET_LOADING(state, loading) {
+          state.loading = loading;
+        },
+        SET_ERROR(state, error) {
+          state.error = error;
+        },
+        SET_CONVENERS(state, conveners) { // FIXED: Correct mutation name
+          state.conveners = conveners;
+        }
+      }
+    },
+
+
+
     // President Module
     president: {
       namespaced: true,

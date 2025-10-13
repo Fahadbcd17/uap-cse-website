@@ -107,6 +107,7 @@
             class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
           >
             <option value="all">All Roles</option>
+            <option value="convener">Convener</option>
             <option value="president">President</option>
             <option value="vice-president">Vice President</option>
             <option value="general-secretary">General Secretary</option>
@@ -312,6 +313,7 @@ const roleFilter = ref('all')
 
 // Get state from store with safe fallbacks
 const clubs = computed(() => store.getters['club/clubs'] || [])
+const conveners = computed(() => store.getters['convener/conveners'] || [])
 const presidents = computed(() => store.getters['president/presidents'] || [])
 const vicePresidents = computed(() => store.getters['vicePresident/vicePresidents'] || [])
 const generalSecretaries = computed(() => store.getters['generalSecretary/generalSecretaries'] || [])
@@ -320,14 +322,14 @@ const executives = computed(() => store.getters['executive/executives'] || [])
 const events = computed(() => store.getters['event/events'] || [])
 
 // Safe convener getter - handles case where module doesn't exist
-const conveners = computed(() => {
-  try {
-    return store.getters['convener/conveners'] || []
-  } catch (error) {
-    console.log('Convener module not available:', error)
-    return []
-  }
-})
+// const conveners = computed(() => {
+//   try {
+//     return store.getters['convener/conveners'] || []
+//   } catch (error) {
+//     console.log('Convener module not available:', error)
+//     return []
+//   }
+// })
 
 // Find current club
 const club = computed(() => clubs.value.find(c => c.id === clubId.value))
@@ -358,13 +360,15 @@ const clubExecutives = computed(() => {
   })
 })
 
-// Combine all members for THIS CLUB only
+// Combine all members for THIS CLUB only - FIXED VERSION
 const allMembers = computed(() => {
   const members = []
 
-  // Helper function to filter by club
-  const filterByClub = (items) => {
-    return items.filter(item => {
+  // Helper function to filter by club and add role
+  const addMembersWithRole = (items, role) => {
+    if (!items || !Array.isArray(items)) return
+    
+    const filteredItems = items.filter(item => {
       if (item && item.club) {
         if (typeof item.club === 'object') {
           return item.club.id === clubId.value
@@ -373,39 +377,28 @@ const allMembers = computed(() => {
       }
       return false
     })
+
+    filteredItems.forEach(item => {
+      members.push({ 
+        ...item, 
+        role: role,
+        // Ensure we have all required properties
+        name: item.name || 'Unknown',
+        title: item.title || formatRole(role),
+        mail: item.mail || item.email || ''
+      })
+    })
   }
 
-  // Add conveners for this club (only if available)
-  if (conveners.value && conveners.value.length > 0) {
-    filterByClub(conveners.value).forEach(c => 
-      members.push({ ...c, role: 'convener' })
-    )
-  }
+  // Add conveners for this club
+  addMembersWithRole(conveners.value, 'convener')
 
-  // Add presidents for this club
-  filterByClub(presidents.value).forEach(p => 
-    members.push({ ...p, role: 'president' })
-  )
-
-  // Add vice presidents for this club
-  filterByClub(vicePresidents.value).forEach(vp => 
-    members.push({ ...vp, role: 'vice-president' })
-  )
-
-  // Add general secretaries for this club
-  filterByClub(generalSecretaries.value).forEach(gs => 
-    members.push({ ...gs, role: 'general-secretary' })
-  )
-
-  // Add treasurers for this club
-  filterByClub(treasurers.value).forEach(t => 
-    members.push({ ...t, role: 'treasurer' })
-  )
-
-  // Add executives for this club
-  filterByClub(executives.value).forEach(e => 
-    members.push({ ...e, role: 'executive' })
-  )
+  // Add other roles
+  addMembersWithRole(presidents.value, 'president')
+  addMembersWithRole(vicePresidents.value, 'vice-president')
+  addMembersWithRole(generalSecretaries.value, 'general-secretary')
+  addMembersWithRole(treasurers.value, 'treasurer')
+  addMembersWithRole(executives.value, 'executive')
 
   return members
 })
@@ -441,6 +434,7 @@ const filteredMembers = computed(() => {
 const loading = computed(() => {
   const loadingStates = [
     store.getters['club/loading'],
+    store.getters['convener/loading'], 
     store.getters['president/loading'], 
     store.getters['vicePresident/loading'],
     store.getters['generalSecretary/loading'],
@@ -463,6 +457,7 @@ const loading = computed(() => {
 const error = computed(() => {
   const errors = [
     store.getters['club/error'],
+    store.getters['convener/error'], 
     store.getters['president/error'], 
     store.getters['vicePresident/error'],
     store.getters['generalSecretary/error'],
@@ -481,23 +476,30 @@ const error = computed(() => {
   return errors.find(error => error) || null
 })
 
-// Fetch all data when component mounts
+// Fetch all data when component mounts - FIXED VERSION
 const fetchClubData = async () => {
   try {
-    await store.dispatch('club/fetchClubs')
-    await store.dispatch('president/fetchPresidents')
-    await store.dispatch('vicePresident/fetchVicePresidents')
-    await store.dispatch('generalSecretary/fetchGeneralSecretaries')
-    await store.dispatch('treasurer/fetchTreasurers')
-    await store.dispatch('executive/fetchExecutives')
-    await store.dispatch('event/fetchEvents')
+    // Fetch all data in parallel for better performance
+    const fetchPromises = [
+      store.dispatch('club/fetchClubs'),
+      store.dispatch('convener/fetchConvener'),
+      store.dispatch('president/fetchPresidents'),
+      store.dispatch('vicePresident/fetchVicePresidents'),
+      store.dispatch('generalSecretary/fetchGeneralSecretaries'),
+      store.dispatch('treasurer/fetchTreasurers'),
+      store.dispatch('executive/fetchExecutives'),
+      store.dispatch('event/fetchEvents')
+    ]
     
     // Try to fetch conveners if the module exists
     try {
-      await store.dispatch('convener/fetchConveners')
+      fetchPromises.push(store.dispatch('convener/fetchConveners'))
     } catch (error) {
-      console.log('Convener fetch failed, continuing without conveners:', error)
+      console.log('Convener module not available, continuing without conveners:', error)
     }
+    
+    await Promise.all(fetchPromises)
+    
   } catch (error) {
     console.error('Error fetching club data:', error)
   }

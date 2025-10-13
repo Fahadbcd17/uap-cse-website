@@ -32,6 +32,13 @@ class GetService {
     async getClub(id, authRequired = true) {
         return await fetchData(`${API_URL}/api/club/${id}/`, 'GET', authRequired);
     }
+    async getClubs(authRequired = true) {
+        return await fetchData(`${API_URL}/api/club/`, 'GET', authRequired);
+    }
+    
+    async getClub(id, authRequired = true) {
+        return await fetchData(`${API_URL}/api/club/${id}/`, 'GET', authRequired);
+    }
 
     // Presidents methods
     async getPresidents(authRequired = true) {
@@ -40,6 +47,14 @@ class GetService {
     
     async getPresident(id, authRequired = true) {
         return await fetchData(`${API_URL}/api/presidents/${id}/`, 'GET', authRequired);
+    }    
+
+    async getConveners(authRequired = true) {
+        return await fetchData(`${API_URL}/api/conveners/`, 'GET', authRequired);
+    }
+    
+    async getConvener(id, authRequired = true) {
+        return await fetchData(`${API_URL}/api/conveners/${id}/`, 'GET', authRequired);
     }
 
     // Vice Presidents methods
