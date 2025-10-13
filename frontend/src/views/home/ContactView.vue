@@ -1,37 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-    <!-- Header -->
-    <header class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
-          <div class="flex items-center">
-            <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span class="text-white font-bold text-xl">U</span>
-            </div>
-            <div class="ml-4">
-              <h1 class="text-2xl font-bold text-gray-900">University Name</h1>
-              <p class="text-gray-600">Get in Touch</p>
-            </div>
-          </div>
-          <nav class="hidden md:flex space-x-8">
-            <a href="#" class="text-gray-900 hover:text-indigo-600 font-medium">Home</a>
-            <a href="#" class="text-gray-900 hover:text-indigo-600 font-medium">Admissions</a>
-            <a href="#" class="text-gray-900 hover:text-indigo-600 font-medium">Programs</a>
-            <a href="#" class="text-indigo-600 font-medium border-b-2 border-indigo-600">Contact</a>
-          </nav>
-          <button class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-semibold">
-            Student Portal
-          </button>
-        </div>
-      </div>
-    </header>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100">
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-20">
+    <section class="relative bg-gradient-to-r from-purple-600 to-purple-700 text-white py-20">
       <div class="absolute inset-0 bg-black opacity-10"></div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 class="text-5xl font-bold mb-6">Get in Touch</h1>
-        <p class="text-xl text-indigo-100 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
           We're here to help you with any questions about admissions, programs, campus life, or anything else you'd like to know.
         </p>
       </div>
@@ -50,7 +25,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Call Us</h3>
             <p class="text-gray-600 mb-4">Speak directly with our admission counselors</p>
-            <div class="text-lg font-semibold text-indigo-600">(555) 123-4567</div>
+            <div class="text-lg font-semibold text-purple-600">(555) 123-4567</div>
             <div class="text-sm text-gray-500 mt-2">Mon-Fri, 9AM-5PM EST</div>
           </div>
 
@@ -63,7 +38,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Email Us</h3>
             <p class="text-gray-600 mb-4">Send us your questions and we'll respond quickly</p>
-            <div class="text-lg font-semibold text-indigo-600">admissions@university.edu</div>
+            <div class="text-lg font-semibold text-purple-600">admissions@university.edu</div>
             <div class="text-sm text-gray-500 mt-2">Response within 24 hours</div>
           </div>
 
@@ -77,7 +52,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Visit Campus</h3>
             <p class="text-gray-600 mb-4">Schedule a campus tour and see us in person</p>
-            <div class="text-lg font-semibold text-indigo-600">Schedule a Tour</div>
+            <div class="text-lg font-semibold text-purple-600">Schedule a Tour</div>
             <div class="text-sm text-gray-500 mt-2">Guided tours available daily</div>
           </div>
         </div>
@@ -97,28 +72,28 @@
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                  <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200" placeholder="Your first name">
+                  <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200" placeholder="Your first name">
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                  <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200" placeholder="Your last name">
+                  <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200" placeholder="Your last name">
                 </div>
               </div>
 
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                  <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200" placeholder="your.email@example.com">
+                  <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200" placeholder="your.email@example.com">
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                  <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200" placeholder="(555) 123-4567">
+                  <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200" placeholder="(555) 123-4567">
                 </div>
               </div>
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
-                <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200">
+                <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200">
                   <option value="">Select a subject</option>
                   <option value="admissions">Admissions Inquiry</option>
                   <option value="financial-aid">Financial Aid</option>
@@ -131,7 +106,7 @@
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Program of Interest</label>
-                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200">
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200">
                   <option value="">Select a program (optional)</option>
                   <option value="cs">Computer Science</option>
                   <option value="engineering">Engineering</option>
@@ -144,17 +119,17 @@
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                <textarea rows="6" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200" placeholder="Tell us how we can help you..."></textarea>
+                <textarea rows="6" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors duration-200" placeholder="Tell us how we can help you..."></textarea>
               </div>
 
               <div class="flex items-center">
-                <input type="checkbox" id="newsletter" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                <input type="checkbox" id="newsletter" class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
                 <label for="newsletter" class="ml-2 text-sm text-gray-700">
                   I'd like to receive updates about admissions and university news
                 </label>
               </div>
 
-              <button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-semibold text-lg">
+              <button type="submit" class="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 transition-colors duration-200 font-semibold text-lg">
                 Send Message
               </button>
             </form>
@@ -186,7 +161,7 @@
               <h3 class="text-2xl font-bold text-gray-900 mb-6">Visit Our Campus</h3>
               <div class="space-y-4">
                 <div class="flex items-start">
-                  <svg class="w-6 h-6 text-indigo-600 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-6 h-6 text-purple-600 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -236,7 +211,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">Admissions Office</h3>
             <p class="text-gray-600 mb-4">Questions about applications, requirements, and deadlines</p>
-            <div class="text-indigo-600 font-semibold">admissions@university.edu</div>
+            <div class="text-purple-600 font-semibold">admissions@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4567</div>
           </div>
 
@@ -249,7 +224,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">Financial Aid</h3>
             <p class="text-gray-600 mb-4">Scholarships, grants, loans, and payment plans</p>
-            <div class="text-indigo-600 font-semibold">finaid@university.edu</div>
+            <div class="text-purple-600 font-semibold">finaid@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4568</div>
           </div>
 
@@ -262,7 +237,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">International Office</h3>
             <p class="text-gray-600 mb-4">Visa, immigration, and international student support</p>
-            <div class="text-indigo-600 font-semibold">international@university.edu</div>
+            <div class="text-purple-600 font-semibold">international@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4569</div>
           </div>
 
@@ -275,7 +250,7 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">Student Housing</h3>
             <p class="text-gray-600 mb-4">Dormitories, apartments, and campus accommodation</p>
-            <div class="text-indigo-600 font-semibold">housing@university.edu</div>
+            <div class="text-purple-600 font-semibold">housing@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4570</div>
           </div>
 
@@ -288,20 +263,20 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">Academic Affairs</h3>
             <p class="text-gray-600 mb-4">Curriculum, courses, and academic policies</p>
-            <div class="text-indigo-600 font-semibold">academics@university.edu</div>
+            <div class="text-purple-600 font-semibold">academics@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4571</div>
           </div>
 
           <!-- Career Services -->
           <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300">
-            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">Career Services</h3>
             <p class="text-gray-600 mb-4">Internships, job placement, and career counseling</p>
-            <div class="text-indigo-600 font-semibold">careers@university.edu</div>
+            <div class="text-purple-600 font-semibold">careers@university.edu</div>
             <div class="text-gray-500 text-sm">(555) 123-4572</div>
           </div>
         </div>
