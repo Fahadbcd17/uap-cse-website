@@ -121,35 +121,115 @@ export const store = createStore({
       },
     },
 
+    user: {
+      namespaced: true,
+      state: {
+        users: [],
+        currentUserProfile: null,
+        loading: false,
+        error: null,
+      },
+      getters: {
+        users: (state) => state.users,
+        currentUserProfile: (state) => state.currentUserProfile,
+        loading: (state) => state.loading,
+        error: (state) => state.error,
+      },
+      actions: {
+        async fetchCurrentUserProfile({ commit }) {
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
+          try {
+            const response = await GetService.getCurrentUserProfile(true);
+            commit("SET_CURRENT_USER_PROFILE", response);
+            return response;
+          } catch (error) {
+            commit(
+              "SET_ERROR",
+              error.message || "Failed to fetch user profile"
+            );
+            console.error("Error fetching user profile:", error);
+            throw error;
+          } finally {
+            commit("SET_LOADING", false);
+          }
+        },
+
+        async updateCurrentUserProfile({ commit }, userData) {
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
+          try {
+            console.log("Updating user profile with:", userData);
+            const response = await GetService.updateCurrentUserProfile(
+              userData,
+              true
+            );
+            commit("SET_CURRENT_USER_PROFILE", response);
+            return response;
+          } catch (error) {
+            commit(
+              "SET_ERROR",
+              error.message || "Failed to update user profile"
+            );
+            console.error("Error updating user profile:", error);
+            throw error;
+          } finally {
+            commit("SET_LOADING", false);
+          }
+        },
+
+        clearCurrentUserProfile({ commit }) {
+          commit("CLEAR_CURRENT_USER_PROFILE");
+        },
+      },
+      mutations: {
+        SET_LOADING(state, loading) {
+          state.loading = loading;
+        },
+        SET_ERROR(state, error) {
+          state.error = error;
+        },
+        SET_USERS(state, users) {
+          state.users = users;
+        },
+        SET_CURRENT_USER_PROFILE(state, userProfile) {
+          state.currentUserProfile = userProfile;
+        },
+        CLEAR_CURRENT_USER_PROFILE(state) {
+          state.currentUserProfile = null;
+        },
+      },
+    },
+
     // Club Module
     club: {
       namespaced: true,
       state: {
         clubs: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         clubs: (state) => state.clubs,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchClubs({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getClubs(true);
-            commit('SET_CLUBS', response);
+            commit("SET_CLUBS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch clubs');
+            commit("SET_ERROR", error.message || "Failed to fetch clubs");
             console.error("Error fetching clubs:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -160,39 +240,38 @@ export const store = createStore({
         },
         SET_CLUBS(state, clubs) {
           state.clubs = clubs;
-        }
-      }
+        },
+      },
     },
-
 
     convener: {
       namespaced: true,
       state: {
         conveners: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         conveners: (state) => state.conveners,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchConveners({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getConveners(true);
-            commit('SET_CONVENERS', response); // FIXED: Changed from SET_PRESIDENTS to SET_CONVENERS
+            commit("SET_CONVENERS", response); // FIXED: Changed from SET_PRESIDENTS to SET_CONVENERS
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch conveners');
+            commit("SET_ERROR", error.message || "Failed to fetch conveners");
             console.error("Error fetching conveners:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -201,13 +280,12 @@ export const store = createStore({
         SET_ERROR(state, error) {
           state.error = error;
         },
-        SET_CONVENERS(state, conveners) { // FIXED: Correct mutation name
+        SET_CONVENERS(state, conveners) {
+          // FIXED: Correct mutation name
           state.conveners = conveners;
-        }
-      }
+        },
+      },
     },
-
-
 
     // President Module
     president: {
@@ -215,29 +293,29 @@ export const store = createStore({
       state: {
         presidents: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         presidents: (state) => state.presidents,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchPresidents({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getPresidents(true);
-            commit('SET_PRESIDENTS', response);
+            commit("SET_PRESIDENTS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch presidents');
+            commit("SET_ERROR", error.message || "Failed to fetch presidents");
             console.error("Error fetching presidents:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -248,8 +326,8 @@ export const store = createStore({
         },
         SET_PRESIDENTS(state, presidents) {
           state.presidents = presidents;
-        }
-      }
+        },
+      },
     },
 
     // Vice President Module
@@ -258,29 +336,32 @@ export const store = createStore({
       state: {
         vicePresidents: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         vicePresidents: (state) => state.vicePresidents,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchVicePresidents({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getVicePresidents(true);
-            commit('SET_VICE_PRESIDENTS', response);
+            commit("SET_VICE_PRESIDENTS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch vice presidents');
+            commit(
+              "SET_ERROR",
+              error.message || "Failed to fetch vice presidents"
+            );
             console.error("Error fetching vice presidents:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -291,8 +372,8 @@ export const store = createStore({
         },
         SET_VICE_PRESIDENTS(state, vicePresidents) {
           state.vicePresidents = vicePresidents;
-        }
-      }
+        },
+      },
     },
 
     // General Secretary Module
@@ -301,29 +382,32 @@ export const store = createStore({
       state: {
         generalSecretaries: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         generalSecretaries: (state) => state.generalSecretaries,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchGeneralSecretaries({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getGeneralSecretaries(true);
-            commit('SET_GENERAL_SECRETARIES', response);
+            commit("SET_GENERAL_SECRETARIES", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch general secretaries');
+            commit(
+              "SET_ERROR",
+              error.message || "Failed to fetch general secretaries"
+            );
             console.error("Error fetching general secretaries:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -334,8 +418,8 @@ export const store = createStore({
         },
         SET_GENERAL_SECRETARIES(state, generalSecretaries) {
           state.generalSecretaries = generalSecretaries;
-        }
-      }
+        },
+      },
     },
 
     // Treasurer Module
@@ -344,29 +428,29 @@ export const store = createStore({
       state: {
         treasurers: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         treasurers: (state) => state.treasurers,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchTreasurers({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getTreasurers(true);
-            commit('SET_TREASURERS', response);
+            commit("SET_TREASURERS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch treasurers');
+            commit("SET_ERROR", error.message || "Failed to fetch treasurers");
             console.error("Error fetching treasurers:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -377,8 +461,8 @@ export const store = createStore({
         },
         SET_TREASURERS(state, treasurers) {
           state.treasurers = treasurers;
-        }
-      }
+        },
+      },
     },
 
     // Executive Module
@@ -387,44 +471,47 @@ export const store = createStore({
       state: {
         executives: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         executives: (state) => state.executives,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchExecutives({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getExecutives(true);
-            commit('SET_EXECUTIVES', response);
+            commit("SET_EXECUTIVES", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch executives');
+            commit("SET_ERROR", error.message || "Failed to fetch executives");
             console.error("Error fetching executives:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
         },
         async fetchClubExecutives({ commit }, clubId) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getClubExecutives(clubId, true);
-            commit('SET_EXECUTIVES', response);
+            commit("SET_EXECUTIVES", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch club executives');
+            commit(
+              "SET_ERROR",
+              error.message || "Failed to fetch club executives"
+            );
             console.error("Error fetching club executives:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -435,8 +522,8 @@ export const store = createStore({
         },
         SET_EXECUTIVES(state, executives) {
           state.executives = executives;
-        }
-      }
+        },
+      },
     },
 
     // Event Module
@@ -445,58 +532,58 @@ export const store = createStore({
       state: {
         events: [],
         loading: false,
-        error: null
+        error: null,
       },
       getters: {
         events: (state) => state.events,
         loading: (state) => state.loading,
-        error: (state) => state.error
+        error: (state) => state.error,
       },
       actions: {
         async fetchEvents({ commit }) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getEvents(true);
-            commit('SET_EVENTS', response);
+            commit("SET_EVENTS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch events');
+            commit("SET_ERROR", error.message || "Failed to fetch events");
             console.error("Error fetching events:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
         },
         async fetchClubEvents({ commit }, clubId) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getClubEvents(clubId, true);
-            commit('SET_EVENTS', response);
+            commit("SET_EVENTS", response);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch club events');
+            commit("SET_ERROR", error.message || "Failed to fetch club events");
             console.error("Error fetching club events:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
         },
         async fetchEvent({ commit }, eventId) {
-          commit('SET_LOADING', true);
-          commit('SET_ERROR', null);
+          commit("SET_LOADING", true);
+          commit("SET_ERROR", null);
           try {
             const response = await GetService.getEvent(eventId, true);
             return response;
           } catch (error) {
-            commit('SET_ERROR', error.message || 'Failed to fetch event');
+            commit("SET_ERROR", error.message || "Failed to fetch event");
             console.error("Error fetching event:", error);
             throw error;
           } finally {
-            commit('SET_LOADING', false);
+            commit("SET_LOADING", false);
           }
-        }
+        },
       },
       mutations: {
         SET_LOADING(state, loading) {
@@ -507,10 +594,9 @@ export const store = createStore({
         },
         SET_EVENTS(state, events) {
           state.events = events;
-        }
-      }
+        },
+      },
     },
-    
 
     // Post Module (existing)
     post: {

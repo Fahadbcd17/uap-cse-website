@@ -2,7 +2,9 @@ from django.urls import path, include, re_path
 from . import views
 from rest_framework import routers
 from .views import *
+
 router = routers.DefaultRouter()
+router.register(r'user-profiles', UserProfileViewSet, basename='userprofile')
 router.register(r'club', views.ClubViewSet, basename='club')
 router.register(r'post', views.PostViewSet, basename='post')
 router.register(r'conveners', ConvenerViewSet)
@@ -19,6 +21,5 @@ urlpatterns =  [
     re_path(r'^auth/', include('djoser.urls.authtoken')),
     re_path(r'^auth/', include('djoser.urls.jwt')),  
 ]
-
 
 urlpatterns += router.urls

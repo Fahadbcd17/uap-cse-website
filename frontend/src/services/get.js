@@ -2,6 +2,15 @@ import fetchData from "./api";
 import { API_URL } from "../config";
 
 class GetService {
+    // User Profile methods
+    async getCurrentUserProfile(authRequired = true) {
+        return await fetchData(`${API_URL}/api/user-profiles/me/`, 'GET', authRequired);
+    }
+
+    async updateCurrentUserProfile(userData, authRequired = true) {
+        return await fetchData(`${API_URL}/api/user-profiles/me/`, 'PUT', authRequired, userData);
+    }
+
     // Posts methods
     async getPosts(authRequired = true) {
         return await fetchData(`${API_URL}/api/post/`, 'GET', authRequired);
@@ -15,7 +24,6 @@ class GetService {
         return await fetchData(`${API_URL}/api/post/`, 'POST', authRequired, postData);
     }
     
-    
     async updatePost(id, postData, authRequired = true) {
         return await fetchData(`${API_URL}/api/post/${id}/`, 'PUT', authRequired, postData);
     }
@@ -25,13 +33,6 @@ class GetService {
     }
     
     // Clubs methods
-    async getClubs(authRequired = true) {
-        return await fetchData(`${API_URL}/api/club/`, 'GET', authRequired);
-    }
-    
-    async getClub(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/club/${id}/`, 'GET', authRequired);
-    }
     async getClubs(authRequired = true) {
         return await fetchData(`${API_URL}/api/club/`, 'GET', authRequired);
     }
@@ -109,10 +110,6 @@ class GetService {
     
     async getClubEvents(clubId, authRequired = true) {
         return await fetchData(`${API_URL}/api/events/?club=${clubId}`, 'GET', authRequired);
-    }
-    
-    async getClubLeadership(clubId, authRequired = true) {
-        return await fetchData(`${API_URL}/api/club-leadership/${clubId}/`, 'GET', authRequired);
     }
 }
 
