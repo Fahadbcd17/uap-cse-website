@@ -149,10 +149,9 @@
           <div>
             <h4 class="font-bold text-lg mb-4 text-white">Academics</h4>
             <ul class="space-y-3">
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Undergraduate Programs</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Graduate Programs</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Research Centers</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Faculty Directory</a></li>
+              <li><a href="https://www.uap-bd.edu/undergraduate.php" target="_blank"  class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Undergraduate Programs</a></li>
+              <li><a href=" https://www.uap-bd.edu/graduate.php" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Graduate Programs</a></li>
+              <li><a href="https://www.uap-bd.edu/faculty.php" target="_blank" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform block">Faculty Directory</a></li>
             </ul>
           </div>
           <div>

@@ -60,21 +60,12 @@
           <div>
             <h4 class="font-semibold mb-4">Academics</h4>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Undergraduate Programs</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Graduate Programs</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Research</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Faculty</a></li>
+              <li><a href="https://www.uap-bd.edu/undergraduate.php" target="_blank" class="text-gray-400 hover:text-white transition">Undergraduate Programs</a></li>
+              <li><a href="https://www.uap-bd.edu/graduate.php" target="_blank" class="text-gray-400 hover:text-white transition">Graduate Programs</a></li>
+              <li><a href="https://www.uap-bd.edu/faculty.php" target="_blank" class="text-gray-400 hover:text-white transition">Faculty</a></li>
             </ul>
           </div>
-          <div>
-            <h4 class="font-semibold mb-4">Admissions</h4>
-            <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Apply Now</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Requirements</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Scholarships</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition">Campus Tour</a></li>
-            </ul>
-          </div>
+          
           <div>
             <h4 class="font-semibold mb-4">Contact</h4>
             <div class="space-y-2 text-gray-400">
@@ -85,7 +76,7 @@
           </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; 2023 University of Asia Pacific. All rights reserved.</p>
+          <p>&copy; 2024 University of Asia Pacific. All rights reserved. | Empowering Future Innovators</p>
         </div>
       </div>
     </footer>
