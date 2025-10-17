@@ -507,9 +507,9 @@ const selectedEvent = ref(null)
 const events = ref([
   {
     id: 1,
-    title: 'Web Development Workshop',
-    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1, 14, 0),
-    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1, 16, 0),
+    title: 'Ai Events',
+    startTime: new Date(2025, 11, 20, 14, 0), 
+    endTime: new Date(2025, 11, 20, 16, 0),
     location: 'CSE Lab 301',
     type: 'workshop',
     description: 'Learn modern web development techniques including React, Vue, and modern CSS frameworks.'
@@ -517,8 +517,8 @@ const events = ref([
   {
     id: 2,
     title: 'Club Monthly Meeting',
-    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 3, 15, 0),
-    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 3, 16, 30),
+    startTime: new Date(2025, 11, 20, 14, 0), 
+    endTime: new Date(2025, 11, 20, 16, 0),
     location: 'Conference Room A',
     type: 'meeting',
     description: 'Monthly club meeting to discuss upcoming events and projects.'
@@ -526,8 +526,8 @@ const events = ref([
   {
     id: 3,
     title: 'Hackathon Kickoff',
-    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7, 10, 0),
-    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7, 12, 0),
+    startTime: new Date(2025, 11, 20, 14, 0), 
+    endTime: new Date(2025, 11, 20, 16, 0),
     location: 'Innovation Hub',
     type: 'competition',
     description: 'Annual coding competition kickoff event with project ideas and team formation.'
@@ -535,8 +535,8 @@ const events = ref([
   {
     id: 4,
     title: 'AI & ML Seminar',
-    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 10, 13, 0),
-    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 10, 15, 0),
+    startTime: new Date(2025, 11, 20, 14, 0), 
+    endTime: new Date(2025, 11, 20, 16, 0),
     location: 'Auditorium B',
     type: 'workshop',
     description: 'Introduction to Artificial Intelligence and Machine Learning concepts.'
@@ -544,8 +544,8 @@ const events = ref([
   {
     id: 5,
     title: 'Project Submission Deadline',
-    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14, 23, 59),
-    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14, 23, 59),
+    startTime: new Date(2025, 11, 20, 14, 0), 
+    endTime: new Date(2025, 11, 20, 16, 0),
     location: 'Online',
     type: 'deadline',
     description: 'Final submission deadline for semester projects.'
