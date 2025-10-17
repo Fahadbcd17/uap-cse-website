@@ -3,113 +3,122 @@ import { API_URL } from "../config";
 
 class GetService {
     // User Profile methods
-    async getCurrentUserProfile(authRequired = true) {
-        return await fetchData(`${API_URL}/api/user-profiles/me/`, 'GET', authRequired);
+    async getCurrentUserProfile() {
+        return await fetchData(`${API_URL}/api/user-profiles/me/`, 'GET', true);
     }
 
-    async updateCurrentUserProfile(userData, authRequired = true) {
-        return await fetchData(`${API_URL}/api/user-profiles/me/`, 'PUT', authRequired, userData);
+    async updateCurrentUserProfile(userData) {
+        const isMultipart = userData instanceof FormData;
+        return await fetchData(
+            `${API_URL}/api/user-profiles/me/`, 
+            'PUT', 
+            true, 
+            userData,
+            isMultipart
+        );
     }
 
     // Posts methods
-    async getPosts(authRequired = true) {
-        return await fetchData(`${API_URL}/api/post/`, 'GET', authRequired);
+    async getPosts() {
+        return await fetchData(`${API_URL}/api/post/`, 'GET', true);
     }
     
-    async getPost(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/post/${id}/`, 'GET', authRequired);
+    async getPost(id) {
+        return await fetchData(`${API_URL}/api/post/${id}/`, 'GET', true);
     }
     
-    async createPost(postData, authRequired = true) {
-        return await fetchData(`${API_URL}/api/post/`, 'POST', authRequired, postData);
+    async createPost(postData) {
+        const isMultipart = postData instanceof FormData;
+        return await fetchData(`${API_URL}/api/post/`, 'POST', true, postData, isMultipart);
     }
     
-    async updatePost(id, postData, authRequired = true) {
-        return await fetchData(`${API_URL}/api/post/${id}/`, 'PUT', authRequired, postData);
+    async updatePost(id, postData) {
+        const isMultipart = postData instanceof FormData;
+        return await fetchData(`${API_URL}/api/post/${id}/`, 'PUT', true, postData, isMultipart);
     }
     
-    async deletePost(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/post/${id}/`, 'DELETE', authRequired);
+    async deletePost(id) {
+        return await fetchData(`${API_URL}/api/post/${id}/`, 'DELETE', true);
     }
     
     // Clubs methods
-    async getClubs(authRequired = true) {
-        return await fetchData(`${API_URL}/api/club/`, 'GET', authRequired);
+    async getClubs() {
+        return await fetchData(`${API_URL}/api/club/`, 'GET', true);
     }
     
-    async getClub(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/club/${id}/`, 'GET', authRequired);
+    async getClub(id) {
+        return await fetchData(`${API_URL}/api/club/${id}/`, 'GET', true);
     }
 
     // Presidents methods
-    async getPresidents(authRequired = true) {
-        return await fetchData(`${API_URL}/api/presidents/`, 'GET', authRequired);
+    async getPresidents() {
+        return await fetchData(`${API_URL}/api/presidents/`, 'GET', true);
     }
     
-    async getPresident(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/presidents/${id}/`, 'GET', authRequired);
+    async getPresident(id) {
+        return await fetchData(`${API_URL}/api/presidents/${id}/`, 'GET', true);
     }    
 
-    async getConveners(authRequired = true) {
-        return await fetchData(`${API_URL}/api/conveners/`, 'GET', authRequired);
+    async getConveners() {
+        return await fetchData(`${API_URL}/api/conveners/`, 'GET', true);
     }
     
-    async getConvener(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/conveners/${id}/`, 'GET', authRequired);
+    async getConvener(id) {
+        return await fetchData(`${API_URL}/api/conveners/${id}/`, 'GET', true);
     }
 
     // Vice Presidents methods
-    async getVicePresidents(authRequired = true) {
-        return await fetchData(`${API_URL}/api/vice-presidents/`, 'GET', authRequired);
+    async getVicePresidents() {
+        return await fetchData(`${API_URL}/api/vice-presidents/`, 'GET', true);
     }
     
-    async getVicePresident(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/vice-presidents/${id}/`, 'GET', authRequired);
+    async getVicePresident(id) {
+        return await fetchData(`${API_URL}/api/vice-presidents/${id}/`, 'GET', true);
     }
 
     // General Secretaries methods
-    async getGeneralSecretaries(authRequired = true) {
-        return await fetchData(`${API_URL}/api/general-secretaries/`, 'GET', authRequired);
+    async getGeneralSecretaries() {
+        return await fetchData(`${API_URL}/api/general-secretaries/`, 'GET', true);
     }
     
-    async getGeneralSecretary(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/general-secretaries/${id}/`, 'GET', authRequired);
+    async getGeneralSecretary(id) {
+        return await fetchData(`${API_URL}/api/general-secretaries/${id}/`, 'GET', true);
     }
 
     // Treasurers methods
-    async getTreasurers(authRequired = true) {
-        return await fetchData(`${API_URL}/api/treasurers/`, 'GET', authRequired);
+    async getTreasurers() {
+        return await fetchData(`${API_URL}/api/treasurers/`, 'GET', true);
     }
     
-    async getTreasurer(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/treasurers/${id}/`, 'GET', authRequired);
+    async getTreasurer(id) {
+        return await fetchData(`${API_URL}/api/treasurers/${id}/`, 'GET', true);
     }
 
     // Executives methods
-    async getExecutives(authRequired = true) {
-        return await fetchData(`${API_URL}/api/executives/`, 'GET', authRequired);
+    async getExecutives() {
+        return await fetchData(`${API_URL}/api/executives/`, 'GET', true);
     }
     
-    async getExecutive(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/executives/${id}/`, 'GET', authRequired);
+    async getExecutive(id) {
+        return await fetchData(`${API_URL}/api/executives/${id}/`, 'GET', true);
     }
 
     // Events methods
-    async getEvents(authRequired = true) {
-        return await fetchData(`${API_URL}/api/events/`, 'GET', authRequired);
+    async getEvents() {
+        return await fetchData(`${API_URL}/api/events/`, 'GET', true);
     }
     
-    async getEvent(id, authRequired = true) {
-        return await fetchData(`${API_URL}/api/events/${id}/`, 'GET', authRequired);
+    async getEvent(id) {
+        return await fetchData(`${API_URL}/api/events/${id}/`, 'GET', true);
     }
 
     // Club-specific data methods
-    async getClubExecutives(clubId, authRequired = true) {
-        return await fetchData(`${API_URL}/api/executives/?club=${clubId}`, 'GET', authRequired);
+    async getClubExecutives(clubId) {
+        return await fetchData(`${API_URL}/api/executives/?club=${clubId}`, 'GET', true);
     }
     
-    async getClubEvents(clubId, authRequired = true) {
-        return await fetchData(`${API_URL}/api/events/?club=${clubId}`, 'GET', authRequired);
+    async getClubEvents(clubId) {
+        return await fetchData(`${API_URL}/api/events/?club=${clubId}`, 'GET', true);
     }
 }
 

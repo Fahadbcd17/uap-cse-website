@@ -6,10 +6,12 @@ from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status, generics, permissions
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_serializer_class(self):
         if self.action in ['update', 'partial_update']:
@@ -21,9 +23,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             return UserProfile.objects.all()
         return UserProfile.objects.filter(user=self.request.user)
 
-    @action(detail=False, methods=['get', 'put', 'patch'])
+    @action(detail=False, methods=['get', 'put', 'patch'], parser_classes=[MultiPartParser, FormParser])
     def me(self, request):
-        # Get or create user profile
         user_profile, created = UserProfile.objects.get_or_create(user=request.user)
         
         if request.method == 'GET':
@@ -31,11 +32,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         
         elif request.method in ['PUT', 'PATCH']:
-            serializer = UserProfileUpdateSerializer(user_profile, data=request.data, partial=True)
+            serializer = UserProfileUpdateSerializer(
+                user_profile, 
+                data=request.data, 
+                partial=(request.method == 'PATCH')
+            )
             serializer.is_valid(raise_exception=True)
             serializer.save()
             
-            # Return full profile data after update
             updated_profile = UserProfile.objects.get(user=request.user)
             full_serializer = UserProfileSerializer(updated_profile)
             return Response(full_serializer.data)

@@ -144,7 +144,54 @@
             </button>
           </div>
           
-          <form @submit.prevent="saveProfile" class="space-y-4">
+          <form @submit.prevent="saveProfile" class="space-y-4" enctype="multipart/form-data">
+            <!-- Profile Picture Upload -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
+              <div class="flex items-center space-x-4">
+                <div v-if="previewImage" class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-300">
+                  <img :src="previewImage" alt="Preview" class="w-full h-full object-cover">
+                </div>
+                <div v-else-if="currentUserProfile?.image" class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-300">
+                  <img :src="currentUserProfile.image" alt="Current" class="w-full h-full object-cover">
+                </div>
+                <div v-else class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <input
+                    type="file"
+                    ref="fileInput"
+                    @change="handleFileSelect"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                  <button
+                    type="button"
+                    @click="$refs.fileInput.click()"
+                    :disabled="modalLoading"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                  >
+                    {{ selectedFile ? 'Change Image' : 'Choose Image' }}
+                  </button>
+                  <p v-if="selectedFile" class="text-xs text-gray-500 mt-1 truncate">
+                    {{ selectedFile.name }}
+                  </p>
+                </div>
+              </div>
+              <button
+                v-if="selectedFile || currentUserProfile?.image"
+                type="button"
+                @click="removeImage"
+                class="mt-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
+                :disabled="modalLoading"
+              >
+                Remove Image
+              </button>
+            </div>
+
             <!-- Gender Field -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
@@ -156,7 +203,6 @@
                 <option value="">Select Gender</option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
-                <option value="O">Other</option>
               </select>
             </div>
 
@@ -206,7 +252,11 @@ const successMessage = ref(null);
 const showEditModal = ref(false);
 const modalLoading = ref(false);
 const modalError = ref(null);
+const selectedFile = ref(null);
+const previewImage = ref(null);
+const fileInput = ref(null);
 const originalGender = ref('');
+const originalImage = ref('');
 
 const editForm = reactive({
   gender: '',
@@ -224,7 +274,7 @@ const currentUserProfile = computed(() => {
 
 // Check if there are changes
 const hasChanges = computed(() => {
-  return editForm.gender !== originalGender.value;
+  return editForm.gender !== originalGender.value || selectedFile.value !== null || (editForm.gender === '' && originalGender.value === null);
 });
 
 const formatGender = (gender) => {
@@ -245,18 +295,59 @@ const formatDate = (dateString) => {
   });
 };
 
+const handleFileSelect = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      modalError.value = 'File size must be less than 5MB';
+      return;
+    }
+    
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      modalError.value = 'Please select an image file';
+      return;
+    }
+    
+    selectedFile.value = file;
+    previewImage.value = URL.createObjectURL(file);
+    modalError.value = null;
+  }
+};
+
+const removeImage = () => {
+  selectedFile.value = null;
+  previewImage.value = null;
+  if (fileInput.value) {
+    fileInput.value.value = '';
+  }
+};
+
 const editProfile = () => {
   // Populate form with current data
   if (currentUserProfile.value) {
     editForm.gender = currentUserProfile.value.gender || '';
     originalGender.value = currentUserProfile.value.gender || '';
+    originalImage.value = currentUserProfile.value.image || '';
   }
+  
+  // Reset file selection
+  selectedFile.value = null;
+  previewImage.value = null;
+  if (fileInput.value) {
+    fileInput.value.value = '';
+  }
+  
   showEditModal.value = true;
+  modalError.value = null;
 };
 
 const closeModal = () => {
   showEditModal.value = false;
   modalError.value = null;
+  selectedFile.value = null;
+  previewImage.value = null;
 };
 
 const saveProfile = async () => {
@@ -264,20 +355,39 @@ const saveProfile = async () => {
   modalError.value = null;
 
   try {
-    // Create simple JSON data
-    const updateData = {
-      gender: editForm.gender
-    };
+    // Always use FormData for profile updates
+    const formData = new FormData();
+    
+    // Add gender to FormData
+    if (editForm.gender !== null && editForm.gender !== undefined) {
+      formData.append('gender', editForm.gender);
+    }
+    
+    // Handle image upload/removal
+    if (selectedFile.value) {
+      // New image selected
+      formData.append('image', selectedFile.value);
+    } else if (selectedFile.value === null && originalImage.value && !previewImage.value) {
+      // Image removal requested - send empty file field
+      formData.append('image', ''); // Empty string to remove image
+    }
+    // If no image field is appended, the existing image remains unchanged
 
-    console.log('Sending update request with data:', updateData);
+    console.log('Sending FormData with entries:');
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
 
-    // Make the update request
-    await store.dispatch('user/updateCurrentUserProfile', updateData);
+    // Make the update request with FormData
+    await store.dispatch('user/updateCurrentUserProfile', formData);
 
     successMessage.value = 'Profile updated successfully!';
     
     // Close modal and refresh data
     closeModal();
+    
+    // Refresh the profile data
+    await store.dispatch('user/fetchCurrentUserProfile');
     
   } catch (err) {
     console.error('Error updating profile:', err);
@@ -285,7 +395,20 @@ const saveProfile = async () => {
     
     // Show specific error if available
     if (err.response?.data) {
-      modalError.value = `Error: ${JSON.stringify(err.response.data)}`;
+      if (typeof err.response.data === 'object') {
+        // Handle field-specific errors
+        if (err.response.data.image) {
+          modalError.value = `Image error: ${err.response.data.image.join(', ')}`;
+        } else if (err.response.data.gender) {
+          modalError.value = `Gender error: ${err.response.data.gender.join(', ')}`;
+        } else {
+          modalError.value = `Error: ${JSON.stringify(err.response.data)}`;
+        }
+      } else {
+        modalError.value = `Error: ${err.response.data}`;
+      }
+    } else if (err.message) {
+      modalError.value = err.message;
     }
   } finally {
     modalLoading.value = false;

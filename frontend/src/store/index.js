@@ -23,11 +23,6 @@ const initialState = user
       user: null,
     };
 
-const initialCityState = {
-  currentCity: null,
-  allCities: [],
-};
-
 export const store = createStore({
   modules: {
     auth: {
@@ -140,14 +135,11 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getCurrentUserProfile(true);
+            const response = await GetService.getCurrentUserProfile();
             commit("SET_CURRENT_USER_PROFILE", response);
             return response;
           } catch (error) {
-            commit(
-              "SET_ERROR",
-              error.message || "Failed to fetch user profile"
-            );
+            commit("SET_ERROR", error.message || "Failed to fetch user profile");
             console.error("Error fetching user profile:", error);
             throw error;
           } finally {
@@ -160,17 +152,11 @@ export const store = createStore({
           commit("SET_ERROR", null);
           try {
             console.log("Updating user profile with:", userData);
-            const response = await GetService.updateCurrentUserProfile(
-              userData,
-              true
-            );
+            const response = await GetService.updateCurrentUserProfile(userData);
             commit("SET_CURRENT_USER_PROFILE", response);
             return response;
           } catch (error) {
-            commit(
-              "SET_ERROR",
-              error.message || "Failed to update user profile"
-            );
+            commit("SET_ERROR", error.message || "Failed to update user profile");
             console.error("Error updating user profile:", error);
             throw error;
           } finally {
@@ -201,7 +187,7 @@ export const store = createStore({
       },
     },
 
-    // Club Module
+    // Other modules (club, convener, president, etc.) remain the same
     club: {
       namespaced: true,
       state: {
@@ -219,7 +205,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getClubs(true);
+            const response = await GetService.getClubs();
             commit("SET_CLUBS", response);
             return response;
           } catch (error) {
@@ -261,8 +247,8 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getConveners(true);
-            commit("SET_CONVENERS", response); // FIXED: Changed from SET_PRESIDENTS to SET_CONVENERS
+            const response = await GetService.getConveners();
+            commit("SET_CONVENERS", response);
             return response;
           } catch (error) {
             commit("SET_ERROR", error.message || "Failed to fetch conveners");
@@ -281,13 +267,11 @@ export const store = createStore({
           state.error = error;
         },
         SET_CONVENERS(state, conveners) {
-          // FIXED: Correct mutation name
           state.conveners = conveners;
         },
       },
     },
 
-    // President Module
     president: {
       namespaced: true,
       state: {
@@ -305,7 +289,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getPresidents(true);
+            const response = await GetService.getPresidents();
             commit("SET_PRESIDENTS", response);
             return response;
           } catch (error) {
@@ -330,7 +314,6 @@ export const store = createStore({
       },
     },
 
-    // Vice President Module
     vicePresident: {
       namespaced: true,
       state: {
@@ -348,14 +331,11 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getVicePresidents(true);
+            const response = await GetService.getVicePresidents();
             commit("SET_VICE_PRESIDENTS", response);
             return response;
           } catch (error) {
-            commit(
-              "SET_ERROR",
-              error.message || "Failed to fetch vice presidents"
-            );
+            commit("SET_ERROR", error.message || "Failed to fetch vice presidents");
             console.error("Error fetching vice presidents:", error);
             throw error;
           } finally {
@@ -376,7 +356,6 @@ export const store = createStore({
       },
     },
 
-    // General Secretary Module
     generalSecretary: {
       namespaced: true,
       state: {
@@ -394,14 +373,11 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getGeneralSecretaries(true);
+            const response = await GetService.getGeneralSecretaries();
             commit("SET_GENERAL_SECRETARIES", response);
             return response;
           } catch (error) {
-            commit(
-              "SET_ERROR",
-              error.message || "Failed to fetch general secretaries"
-            );
+            commit("SET_ERROR", error.message || "Failed to fetch general secretaries");
             console.error("Error fetching general secretaries:", error);
             throw error;
           } finally {
@@ -422,7 +398,6 @@ export const store = createStore({
       },
     },
 
-    // Treasurer Module
     treasurer: {
       namespaced: true,
       state: {
@@ -440,7 +415,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getTreasurers(true);
+            const response = await GetService.getTreasurers();
             commit("SET_TREASURERS", response);
             return response;
           } catch (error) {
@@ -465,7 +440,6 @@ export const store = createStore({
       },
     },
 
-    // Executive Module
     executive: {
       namespaced: true,
       state: {
@@ -483,7 +457,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getExecutives(true);
+            const response = await GetService.getExecutives();
             commit("SET_EXECUTIVES", response);
             return response;
           } catch (error) {
@@ -498,14 +472,11 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getClubExecutives(clubId, true);
+            const response = await GetService.getClubExecutives(clubId);
             commit("SET_EXECUTIVES", response);
             return response;
           } catch (error) {
-            commit(
-              "SET_ERROR",
-              error.message || "Failed to fetch club executives"
-            );
+            commit("SET_ERROR", error.message || "Failed to fetch club executives");
             console.error("Error fetching club executives:", error);
             throw error;
           } finally {
@@ -526,7 +497,6 @@ export const store = createStore({
       },
     },
 
-    // Event Module
     event: {
       namespaced: true,
       state: {
@@ -544,7 +514,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getEvents(true);
+            const response = await GetService.getEvents();
             commit("SET_EVENTS", response);
             return response;
           } catch (error) {
@@ -559,7 +529,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getClubEvents(clubId, true);
+            const response = await GetService.getClubEvents(clubId);
             commit("SET_EVENTS", response);
             return response;
           } catch (error) {
@@ -574,7 +544,7 @@ export const store = createStore({
           commit("SET_LOADING", true);
           commit("SET_ERROR", null);
           try {
-            const response = await GetService.getEvent(eventId, true);
+            const response = await GetService.getEvent(eventId);
             return response;
           } catch (error) {
             commit("SET_ERROR", error.message || "Failed to fetch event");
@@ -598,7 +568,6 @@ export const store = createStore({
       },
     },
 
-    // Post Module (existing)
     post: {
       namespaced: true,
       state: {
@@ -612,7 +581,7 @@ export const store = createStore({
       actions: {
         async fetchPosts({ commit }) {
           try {
-            const response = await GetService.getPosts(true);
+            const response = await GetService.getPosts();
             commit("setPosts", response);
             return response;
           } catch (error) {
@@ -622,7 +591,7 @@ export const store = createStore({
         },
         async fetchPost({ commit }, id) {
           try {
-            const response = await GetService.getPost(id, true);
+            const response = await GetService.getPost(id);
             commit("setCurrentPost", response);
             return response;
           } catch (error) {
@@ -632,7 +601,7 @@ export const store = createStore({
         },
         async createPost({ commit }, postData) {
           try {
-            const response = await GetService.createPost(postData, true);
+            const response = await GetService.createPost(postData);
             commit("addPost", response);
             return response;
           } catch (error) {
@@ -642,7 +611,7 @@ export const store = createStore({
         },
         async updatePost({ commit }, { id, postData }) {
           try {
-            const response = await GetService.updatePost(id, postData, true);
+            const response = await GetService.updatePost(id, postData);
             commit("updatePost", response);
             return response;
           } catch (error) {
@@ -652,7 +621,7 @@ export const store = createStore({
         },
         async deletePost({ commit }, id) {
           try {
-            await GetService.deletePost(id, true);
+            await GetService.deletePost(id);
             commit("removePost", id);
             return true;
           } catch (error) {

@@ -15,9 +15,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['gender']
+        fields = ['image', 'gender']
     
     def update(self, instance, validated_data):
+        instance.image = validated_data.get('image', instance.image)
         instance.gender = validated_data.get('gender', instance.gender)
         instance.save()
         return instance
