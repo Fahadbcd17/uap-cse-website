@@ -1,5 +1,8 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+  <div 
+    class="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+    :style="{ backgroundImage: `url(${backgroundImage})` }"
+  >
     <!-- Loading State -->
     <div
       v-if="loading"
@@ -13,6 +16,9 @@
 
     <!-- Welcome Section -->
     <div class="relative overflow-hidden">
+      <!-- Background Overlay for better readability -->
+      <div class="absolute inset-0 bg-black/20"></div>
+      
       <!-- Background Elements -->
       <div class="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
       <div class="absolute top-0 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
@@ -31,16 +37,16 @@
           </div>
 
           <!-- Welcome Message -->
-          <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
+          <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
             Welcome back,
-            <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               {{ store.state.auth.user.username || "Valued Member" }}!
             </span>
             <span class="ml-3">👋</span>
           </h1>
 
           <!-- Subtitle -->
-          <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto leading-relaxed">
             Great to see you again! Your CSE Club dashboard is ready and waiting for you.
           </p>
 
@@ -49,12 +55,12 @@
     </div>
 
     <!-- Motivational Quote -->
-    <div >
+    <div class="relative">
       <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-lg text-gray-600 italic">
+        <p class="text-lg text-white italic">
           "The computer was born to solve problems that did not exist before."
         </p>
-        <p class="text-sm text-gray-500 mt-2">- Bill Gates</p>
+        <p class="text-sm text-gray-300 mt-2">- Bill Gates</p>
       </div>
     </div>
   </div>
@@ -63,6 +69,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
+import backgroundImage from '../../assets/cover-img.jpg';
 
 const store = useStore();
 const loading = ref(true);
